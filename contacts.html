@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--===== CONTACT LIST =====-->
+<section class="contact-list section" id="contact-list">
+    <h2 class="section-title">Contacts</h2>
+    <div class="contact-list__container bd-grid" id="contactsContainer">
+        <!-- Contacts will be dynamically inserted here -->
+    </div>
+</section>
+
+<script>
+    const PORT = 8000 || process.env.PORT;
+async function loadContacts() {
+    try {
+        const response = await fetch(`http://localhost:${PORT}/api/contacts`);
+        const contacts = await response.json();
+
+        const contactsContainer = document.getElementById('contactsContainer');
+        contactsContainer.innerHTML = '';  // Clear existing contacts
+
+        contacts.forEach(contact => {
+            const contactDiv = document.createElement('div');
+            contactDiv.classList.add('contact-item');
+            contactDiv.innerHTML = `
+                <p><strong>Name:</strong> ${contact.name}</p>
+                <p><strong>Email:</strong> ${contact.email}</p>
+                <p><strong>Message:</strong> ${contact.message}</p>
+            `;
+            contactsContainer.appendChild(contactDiv);
+        });
+    } catch (error) {
+        console.error('Error loading contacts:', error);
+    }
+}
+
+window.onload = loadContacts;
+</script>
+</body>
+
+</html>
