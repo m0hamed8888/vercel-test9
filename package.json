@@ -9,9 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "engines": {
-    "node": "v21.6.1"
-  },
+ "engines": { "node": "20.x" }
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
